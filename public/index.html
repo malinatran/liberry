@@ -1,43 +1,79 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
+<!-- AIzaSyA5FPbezwmdtdlr2rpz3RcUXMr68qBU8Js -->
 <html ng-app="Liberry">
   <head>
     <title>Liberry</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="twitter.js"></script>
   </head>
   <body ngliberry data-ng-init="main.getBerries()">
 
     <!-- LOGO -->
     <div id="logo">liberry<img src="img/cherry.png" id="cherry"></div>
 
+    <!-- NEW BUTTON FORM -->
+    <div class="row text-center" id="pickberry">
+      <button ng-click="form = !form" type="button" class="btn btn-default btn-lg" id="pickberry-btn">Pick a Berry</button>
+    </div>
+    <div class="row text-left" id="search">
+      <input ng-model="berrySearch" id="search" placeholder="Search"><span class="glyphicon glyphicon-search"></span>
+    </div>
+
     <!-- FORM -->
-    <form>
-      <input type="text" ng-model="main.formTitle" placeholder="Title">
-      <input type="text" ng-model="main.formAuthor" placeholder="Author"><br>
-      <input type="text" ng-model="main.formImage" placeholder="Image URL">
-      <input type="text" ng-model="main.formCategory" placeholder="Category, i.e. book, article, video"><br>
-      <input type="text" ng-model="main.formTags" placeholder="#hashtags">
-      <input type="text" ng-model="main.formURL" placeholder="URL"><br>
-      <textarea ng-model="main.formReference" placeholder="TL;DR or meaningful quote"></textarea><br>
-      <button ng-hide="main.hideSubmit" ng-click="main.addBerry()" id="submit-btn">Submit</button>
-      <button ng-hide="!main.hideSubmit" ng-click="main.updateBerry()" id="update-btn">Update</button>
-      <button ng-hide="!main.hideSubmit" ng-click="main.cancelEdit()">Cancel</button>
+    <form ng-hide="!form" class="row text-center"> 
+      <div class="form-group">
+        <input type="text" ng-model="main.formTitle" placeholder="Title">
+        <input type="text" ng-model="main.formAuthor" placeholder="Author">
+      </div>
+      <div class="form-group">
+        <input type="text" ng-model="main.formImage" placeholder="Image URL">
+        <input type="text" ng-model="main.formCategory" placeholder="Category, i.e. book, song">
+      </div>
+      <div class="form-group">
+        <input type="text" ng-model="main.formTags" placeholder="#hashtags">
+        <input type="text" ng-model="main.formURL" placeholder="URL">
+      </div>
+      <div class="form-group">
+        <textarea ng-model="main.formReference" placeholder="TL;DR or meaningful quote"></textarea>
+      </div>
+      <button ng-hide="main.hideSubmit" ng-click="main.addBerry()" id="submit-btn" type="button" class="btn btn-danger">Submit</button>
+      <button ng-hide="!main.hideSubmit" ng-click="main.updateBerry()" id="update-btn" type="button" class="btn btn-success">Update</button>
+      <button ng-hide="!main.hideSubmit" ng-click="main.cancelEdit()" type="button" class="btn btn-default">Cancel</button>
     </form>
 
     <!-- ALL BERRIES -->
-    <div ng-repeat="berry in main.berries">
+    <div ng-repeat="berry in main.berries | filter:berrySearch">
       <div class="berry-container">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20this%20out%20from%20Liberry!" data-size="large"></a><br>
         <a href="{{berry.URL}}" target="_blank"><img ng-src={{berry.imgurl}} class="berry-img"></a>
-        <p>{{berry.category}}</p>
-        {{berry.title}} <br> by {{berry.author}}
-        <p>{{berry.tags}}</p>
-        <button ng-click="main.editBerry(berry)">Edit</button>
-        <button ng-click="main.deleteBerry(berry)">Delete</button>
-        <button>Share</button>
+        <p class="category">{{berry.category}}</p>
+        <span class="title">{{berry.title}}</span><br>
+        <span class="author">by {{berry.author}}</span><br>
+        <div class="tag-container"><span class="glyphicon glyphicon-tag"></span><span class="tags">{{berry.tags}}</span></div>
+        <div id="button-container">
+          <button ng-click="hide = !hide" type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+          </button>
+          <button ng-click="main.editBerry(berry)" type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          </button>
+          <button ng-click="main.deleteBerry(berry)" type="button" class="btn btn-info">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
+        </div>
+        <span ng-hide="!hide" class="reference"><p>"{{berry.reference}}"</p></span>
       </div>
     </div>
+
+    <!-- MODAL -->
+
 
   </body>
 </html>
