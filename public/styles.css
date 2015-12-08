@@ -1,0 +1,37 @@
+#logo {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 20px auto;
+  text-align: center;
+}
+
+#cherry {
+  height: 50px;
+}
+
+.berry-img {
+  height: 200px;
+}
+
+.berry-container {
+  float: left;
+  margin: 30px;
+}
+
+input {
+  color: red;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+  width: 200px;
+}
+
+textarea {
+  color: red;
+  border: 1px solid black;
+  padding: 10px;
+  padding-top: 12px;
+  margin: 5px;
+  width: 437px;
+}

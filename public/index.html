@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="Liberry">
+  <head>
+    <title>Liberry</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ngliberry data-ng-init="main.getBerries()">
+
+    <!-- LOGO -->
+    <div id="logo">liberry<img src="img/cherry.png" id="cherry"></div>
+
+    <!-- FORM -->
+    <form>
+      <input type="text" ng-model="main.formTitle" placeholder="Title">
+      <input type="text" ng-model="main.formAuthor" placeholder="Author"><br>
+      <input type="text" ng-model="main.formImage" placeholder="Image URL">
+      <input type="text" ng-model="main.formCategory" placeholder="Category, i.e. book, article, video"><br>
+      <input type="text" ng-model="main.formTags" placeholder="#hashtags">
+      <input type="text" ng-model="main.formURL" placeholder="URL"><br>
+      <textarea ng-model="main.formReference" placeholder="TL;DR or meaningful quote"></textarea><br>
+      <button ng-hide="main.hideSubmit" ng-click="main.addBerry()" id="submit-btn">Submit</button>
+      <button ng-hide="!main.hideSubmit" ng-click="main.updateBerry()" id="update-btn">Update</button>
+      <button ng-hide="!main.hideSubmit" ng-click="main.cancelEdit()">Cancel</button>
+    </form>
+
+    <!-- ALL BERRIES -->
+    <div ng-repeat="berry in main.berries">
+      <div class="berry-container">
+        <a href="{{berry.URL}}" target="_blank"><img ng-src={{berry.imgurl}} class="berry-img"></a>
+        <p>{{berry.category}}</p>
+        {{berry.title}} <br> by {{berry.author}}
+        <p>{{berry.tags}}</p>
+        <button ng-click="main.editBerry(berry)">Edit</button>
+        <button ng-click="main.deleteBerry(berry)">Delete</button>
+        <button>Share</button>
+      </div>
+    </div>
+
+  </body>
+</html>
